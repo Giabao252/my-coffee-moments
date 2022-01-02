@@ -3,11 +3,16 @@ import mongoose from "mongoose";
 import cors from "cors";
 import bodyParser from "body-parser";
 import router from './routes/routes.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express()
 
-mongoose.connect(
-    `mongodb+srv://Giabao_2502:giabaobadao@cluster0.dr9t0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
+const CONNECTION = process.env.ATLAS_URL;
+const port = process.env.PORT || 5000;
+
+mongoose.connect( CONNECTION,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -28,6 +33,6 @@ app.use(cors());
 app.use('/posts', router);
 
 
-app.listen(5000, () => {
-	console.log(`Server running hella fine on port 5000`);
+app.listen(port , () => {
+  console.log('Server running on port 5000');
 });
